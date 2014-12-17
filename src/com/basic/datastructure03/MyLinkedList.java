@@ -12,11 +12,11 @@ public class MyLinkedList implements List{
 	@Override
 	public Object get(int i) {
 		Node cur = head;
+		int index = 0;
 		while(cur != null){
-			i--;
-			if(i == 0)
-				return cur;
-			
+			if(i == index)
+				return cur.getElem();
+			index ++ ;
 			cur = cur.getNext();
 		}
 		
@@ -34,15 +34,16 @@ public class MyLinkedList implements List{
 		
 		Node prev = head;
 		Node cur = head.getNext();
+		int index = 1;
 		while(cur != null){
-			i--;
-			if(i == 0){
+			if(i == index){
 				prev.setNext(cur.getNext());
 				if(tail == cur){
 					tail = prev;
 				}
 				return;
 			}
+			index++;
 			prev = cur;
 			cur = cur.getNext();
 		}
@@ -105,5 +106,23 @@ public class MyLinkedList implements List{
 		
 		list.remove(1);
 		list.printAll();
+
+		System.out.println("Size: " + list.size());
+		
+		System.out.println(list.get(0));
+		try{
+			// invalid index
+			list.get(1);
+		}catch(Exception e){
+			//e.printStackTrace();
+			System.out.println("Yeah! Invlaid Index");
+		}
+		
+		try{
+			// invalid index
+			list.remove(1);
+		}catch(Exception e){
+			System.out.println("Yeah! Invlaid Index");
+		}
 	}
 }
