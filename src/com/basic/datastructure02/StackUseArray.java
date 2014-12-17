@@ -10,19 +10,19 @@ public class StackUseArray {
 		public void push(Object ele);
 	}
 	
-	class ExceptionStackEmpty extends RuntimeException{//对空栈用pop，top方法时抛出异常
+	public static class ExceptionStackEmpty extends RuntimeException{//对空栈用pop，top方法时抛出异常
 		public ExceptionStackEmpty(String err){
 			super(err);
 		}
 	}
 	
-	class ExceptionStackFull extends RuntimeException{//对满栈进行push操作时抛出异常
+	public static class ExceptionStackFull extends RuntimeException{//对满栈进行push操作时抛出异常
 		public ExceptionStackFull(String err){
 			super(err);
 		}
 	}
 	
-	class Stack_Array implements Stack{
+	static class Stack_Array implements Stack{
 		public static final int CAPACITY = 1024;
 		protected int capacity;
 		protected Object[] s;
@@ -71,8 +71,8 @@ public class StackUseArray {
 	
 	//利用栈实现数组倒置
 	public static Integer[] Reverse(Integer[] a){
-		StackUseArray sua = new StackUseArray();
-		Stack_Array sa = sua.new Stack_Array(a.length);
+		//StackUseArray sua = new StackUseArray();
+		Stack_Array sa = new Stack_Array(a.length);
 		Integer[] b = new Integer[a.length];
 		for(int i=0; i<a.length;i++){
 			sa.push(a[i]);
