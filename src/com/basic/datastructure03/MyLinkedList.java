@@ -28,6 +28,10 @@ public class MyLinkedList implements List{
 			if(head == null){
 				throw new RuntimeException("Invalid index"); 
 			}
+			if(tail == head){
+				head = tail = null;
+				return;
+			}
 			head = head.getNext();
 			return;
 		}
