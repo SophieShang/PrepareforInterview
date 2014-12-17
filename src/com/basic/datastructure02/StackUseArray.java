@@ -38,7 +38,7 @@ public class StackUseArray {
 		}
 		
 		public int getSize(){
-			return top+1;
+			return top+1;//数组是从零开始计数的
 		}
 		
 		public boolean isEmpty(){
