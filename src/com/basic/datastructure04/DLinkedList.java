@@ -41,7 +41,7 @@ public class DLinkedList implements List {
 		if(i ==0){
 			if(header == null)
 				throw new RuntimeException("invalid index");
-			header = header.getNext();
+			header = tailer = null;
 			return;
 		}
 		DLNode temp = header;
@@ -51,7 +51,7 @@ public class DLinkedList implements List {
 				temp.getPrev().setNext(temp.getNext());
 				temp.getNext().setPrev(temp.getPrev());
 				if(temp == tailer){
-					temp.getPrev().setNext(null);
+					tailer = temp.getPrev();
 				}
 			}
 			index ++;
