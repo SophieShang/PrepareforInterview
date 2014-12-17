@@ -24,6 +24,13 @@ public class Node implements Position{
 	public void setNext(Node n){
 		next = n;
 	}
+	public void display(){
+		Node cursor = this;
+		while(cursor!=null){
+			System.out.print(cursor.getElem());
+			cursor = cursor.getNext();
+		}
+	}
 	
 	public static void main(String args[]){
 		Node n1 = new Node(4,null);
@@ -37,6 +44,13 @@ public class Node implements Position{
 		System.out.println(n3.getElem());
 		System.out.println(n2.getElem());
 		System.out.println(n1.getElem());
+		Node cursor = n4;
+		System.out.println("输出链表");
+		n4.display();
+		//while(cursor!=null){
+		//	System.out.print(cursor.getElem());
+		//	cursor = cursor.getNext();
+		//}
 		
 	}
 }
