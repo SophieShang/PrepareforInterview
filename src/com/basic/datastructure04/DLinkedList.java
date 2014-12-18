@@ -35,8 +35,7 @@ public class DLinkedList implements List {
 		return null;
 	}
 
-	@Override
-	public void remove(int i) {
+	/*public void remove(int i) {
 		// TODO Auto-generated method stub
 		if(i ==0){
 			if(header == null)
@@ -58,8 +57,50 @@ public class DLinkedList implements List {
 			temp = temp.getNext();
 		}
 
-	}
+	}*/
 
+	public void remove(int i){
+		DLNode temp = header;
+		int index = 0;
+		if(temp == null){
+			throw new RuntimeException("invalid index");
+		}
+		while(temp != null){
+			if(i == index){
+				DLNode prev = temp.getPrev();
+				DLNode next = temp.getNext();
+				/*if(prev != null){//说明有直接前序，不是头节点
+					prev.setNext(next);
+				}
+				if(next != null){
+					next.setPrev(prev);
+				}
+				if(temp == header){
+					header = temp.getNext();
+				}
+				if(temp == tailer){
+					tailer = temp.getPrev();
+				}*/
+				
+				if(prev != null || next != null){
+					if(temp == tailer){
+						tailer = prev;
+					}else if(temp == header){
+						header = temp.getNext();
+					}else{
+						next.setPrev(prev);
+						prev.setNext(next);
+						
+					}
+				}else{//相当于只有一个结点
+					header = tailer = null;
+				}
+			}
+			index++;
+			temp = temp.getNext();
+		}
+	}
+	
 	@Override
 	public int size() {
 		// TODO Auto-generated method stub
@@ -83,5 +124,12 @@ public class DLinkedList implements List {
 		// TODO Auto-generated method stub
 
 	}
-
+	
+	public void print(){
+		DLNode cur = header;
+		while(cur != null){
+			System.out.print(cur.getElem()+" ");
+			cur = cur.getNext();
+		}
+	}
 }

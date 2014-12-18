@@ -28,6 +28,10 @@ public class MyLinkedList implements List{
 			if(head == null){
 				throw new RuntimeException("Invalid index"); 
 			}
+			if(tail == head){//链表中只有一个节点，所以头和尾都指向这个节点
+				head = tail =null;//这时候尾节点也要置为空
+				return;
+			}
 			head = head.getNext();
 			return;
 		}

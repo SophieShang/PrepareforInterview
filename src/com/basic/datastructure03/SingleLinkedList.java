@@ -1,5 +1,7 @@
 package com.basic.datastructure03;
 
+import com.basic.datastructure04.DLNode;
+
 public class SingleLinkedList implements List {
 	private Node head;
 	private Node tail;
@@ -12,11 +14,11 @@ public class SingleLinkedList implements List {
 	public void add(Object o) {
 		// TODO Auto-generated method stub
 		if(head == null){
-			head = new Node(0,null);
+			head = new Node(o,null);
 			tail = head;
 			return;
 		}
-		Node no = new Node(0,null);
+		Node no = new Node(o,null);
 		tail.setNext(no);
 		tail = tail.getNext();
 	}
@@ -85,6 +87,72 @@ public class SingleLinkedList implements List {
 	public void insert(int index, Object o) {
 		// TODO Auto-generated method stub
 
+	}
+	
+/*	public void Reverse(){
+		Node cur = head;
+		Node prev = null;
+		Node next = cur.getNext();
+		while(next != null){
+			cur.setNext(prev);
+			prev = cur;
+			cur = next;
+			next = next.getNext();
+		}
+		cur.setNext(prev);
+		head = cur;
+	}*/
+	
+	public void Reverse(){
+		Node prev = null;
+		Node next = head.getNext();
+		while(next != null){
+			head.setNext(prev);
+			prev = head;
+			head = next;
+			next = next.getNext();
+		}
+		head.setNext(prev);
+	}
+	
+	public void Sort(){   //无序链表变为有序的
+		for(int i=this.size();i>0;i--){
+			for(int j=i;j>0;j--){
+				Object m = this.get(i);
+				Object n = this.get(j);
+				if(m < n){
+					Object temp;
+					temp = m;
+					m = n;
+					n = temp;
+				}
+			}
+		}
+	}
+	
+	public void print(){
+		Node cur = head;
+		while(cur != null){
+			System.out.print(cur.getElem()+" ");
+			cur = cur.getNext();
+		}
+		System.out.println();
+	}
+	
+	public static void main(String[] args){
+		SingleLinkedList ls = new SingleLinkedList();
+		ls.add("5");
+		ls.add("7");
+		ls.add("2");
+		ls.add("3");
+		ls.add("9");
+		ls.print();
+		ls.remove(3);
+		System.out.println("原链表是：");
+		ls.print();
+		System.out.println("反转过的链表是：");
+		ls.Reverse();
+		ls.print();
 	}
 
 }
