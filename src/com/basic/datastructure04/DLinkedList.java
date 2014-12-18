@@ -8,7 +8,6 @@ public class DLinkedList implements List {
 
 	@Override
 	public void add(Object o) {
-		// TODO Auto-generated method stub
 		if(header == null){
 			header = new DLNode(o,null,null);
 			tailer = header;
@@ -17,16 +16,13 @@ public class DLinkedList implements List {
 		DLNode temp = new DLNode(o,tailer,null);
 		tailer.setNext(temp);
 		tailer = tailer.getNext();
-		
-
 	}
 
 	@Override
 	public Object get(int i) {
-		// TODO Auto-generated method stub
 		DLNode temp = header;
 		int index = 0;
-		while(temp!=null){
+		while(temp != null){
 			if(i == index)
 				return temp.getElem();
 			index++;
@@ -34,6 +30,7 @@ public class DLinkedList implements List {
 		}
 		return null;
 	}
+
 
 	/*public void remove(int i) {
 		// TODO Auto-generated method stub
@@ -43,21 +40,43 @@ public class DLinkedList implements List {
 			header = header.getNext();
 			return;
 		}
+=======
+	@Override
+	public void remove(int i) {
+>>>>>>> 06f9692d6080fed714cf5583b951dec16a542286
 		DLNode temp = header;
-		int index = 1;
-		while(temp!=null){
+		int index = 0;
+		while(temp != null){
 			if(i == index){
-				temp.getPrev().setNext(temp.getNext());
-				temp.getNext().setPrev(temp.getPrev());
-				if(temp == tailer){
-					temp.getPrev().setNext(null);
+				DLNode prev = temp.getPrev();
+				DLNode next = temp.getNext();
+				
+				if(prev != null){
+					prev.setNext(next);
 				}
+				
+				if(next != null){
+					next.setPrev(prev);
+				}
+				
+				if(temp == header){
+					header = temp.getNext();
+				}
+				
+				if(temp == tailer){
+					tailer = temp.getPrev();
+				}
+				return;
 			}
 			index ++;
 			temp = temp.getNext();
 		}
+<<<<<<< HEAD
 
+	}
+		throw new RuntimeException("Invalid Index!");
 	}*/
+
 
 	public void remove(int i){
 		DLNode temp = header;
@@ -69,7 +88,7 @@ public class DLinkedList implements List {
 			if(i == index){
 				DLNode prev = temp.getPrev();
 				DLNode next = temp.getNext();
-				/*if(prev != null){//说明有直接前序，不是头节点
+				/*if(prev != null){//è¯´æ˜Žæœ‰ç›´æŽ¥å‰�åº�ï¼Œä¸�æ˜¯å¤´èŠ‚ç‚¹
 					prev.setNext(next);
 				}
 				if(next != null){
@@ -92,7 +111,7 @@ public class DLinkedList implements List {
 						prev.setNext(next);
 						
 					}
-				}else{//相当于只有一个结点
+				}else{//ç›¸å½“äºŽå�ªæœ‰ä¸€ä¸ªç»“ç‚¹
 					header = tailer = null;
 				}
 			}
@@ -103,7 +122,6 @@ public class DLinkedList implements List {
 	
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
 		int size=0;
 		DLNode temp = header;
 		while(temp!=null){
@@ -131,5 +149,48 @@ public class DLinkedList implements List {
 			System.out.print(cur.getElem()+" ");
 			cur = cur.getNext();
 		}
+
+		System.out.println();
 	}
-}
+	
+	public void printReverse(){
+		DLNode cur = tailer;
+		while(cur != null){
+			System.out.print(cur.getElem());
+			System.out.print(" ");
+			cur = cur.getPrev();
+		}
+		System.out.println();
+	}
+	
+	public static void main(String[] args){
+		DLinkedList dll = new DLinkedList();
+		dll.add("1");
+		dll.add("2");
+		dll.add("3");
+		dll.add("4");
+		
+		dll.print();
+		dll.printReverse();
+		
+		dll.remove(1);
+		
+		dll.print();
+		dll.printReverse();
+		
+		dll.remove(0);
+		
+		dll.print();
+		dll.printReverse();
+		
+		dll.remove(1);
+		
+		dll.print();
+		dll.printReverse();
+		
+		dll.remove(0);
+		
+		dll.print();
+		dll.printReverse();
+	}
+}	
