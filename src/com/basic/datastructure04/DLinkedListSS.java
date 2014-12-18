@@ -5,34 +5,36 @@ import com.basic.datastructure03.List;
 public class DLinkedListSS implements List {
 	private DLNode header;
 	private DLNode tailer;
-
+	private int size;
 	@Override
 	public void add(Object o) {
 		// TODO Auto-generated method stub
 		if(header == null){
 			header = new DLNode(o,null,null);
 			tailer = header;
+			size++;
 			return;
 		}
 		DLNode temp = new DLNode(o,tailer,null);
 		tailer.setNext(temp);
 		tailer = tailer.getNext();
-		
-
+		size++;
 	}
 
 	@Override
 	public Object get(int i) {
-		// TODO Auto-generated method stub
+		if(i<0 || i >= size){
+			throw new RuntimeException("Invalid Index " + i);
+		}
 		DLNode temp = header;
 		int index = 0;
-		while(temp!=null){
+		while(temp != null){
 			if(i == index)
 				return temp.getElem();
 			index++;
 			temp = temp.getNext();
 		}
-		return null;
+		throw new RuntimeException("Bad list");
 	}
 
 	/*public void remove(int i) {
@@ -60,11 +62,13 @@ public class DLinkedListSS implements List {
 	}*/
 
 	public void remove(int i){
+		if(i<0 || i >= size){
+			throw new RuntimeException("Invalid Index " + i);
+		}
+		
 		DLNode temp = header;
 		int index = 0;
-		if(temp == null){
-			throw new RuntimeException("invalid index");
-		}
+		
 		while(temp != null){
 			if(i == index){
 				DLNode prev = temp.getPrev();
@@ -85,31 +89,29 @@ public class DLinkedListSS implements List {
 				if(prev != null || next != null){
 					if(temp == tailer){
 						tailer = prev;
+						prev.setNext(null);
 					}else if(temp == header){
 						header = temp.getNext();
+						temp.setPrev(null);
 					}else{
 						next.setPrev(prev);
 						prev.setNext(next);
-						
 					}
 				}else{//相当于只有一个结点
 					header = tailer = null;
 				}
+				size--;
+				return;
 			}
 			index++;
 			temp = temp.getNext();
 		}
+		
+		throw new RuntimeException("Bad list");
 	}
 	
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		int size=0;
-		DLNode temp = header;
-		while(temp!=null){
-			size++;
-			temp = temp.getNext();
-		}
 		return size;
 	}
 
@@ -130,6 +132,33 @@ public class DLinkedListSS implements List {
 		while(cur != null){
 			System.out.print(cur.getElem()+" ");
 			cur = cur.getNext();
+		}
+		System.out.println();
+	}
+	
+	public static void main(String [] args){
+		DLinkedListSS list = new DLinkedListSS();
+		list.add("1");
+		list.add("2");
+		list.add("3");
+		list.add("4");
+		list.print();
+		System.out.println("Size: " + list.size());
+		list.remove(2);
+		list.remove(2);
+		list.print();
+		System.out.println("Size: " + list.size());
+		
+		try{
+			list.get(2);
+		}catch(Exception e){
+			System.out.println("Bad index");
+		}
+		
+		try{
+			list.remove(2);
+		}catch(Exception e){
+			System.out.println("Bad index");
 		}
 	}
 }
