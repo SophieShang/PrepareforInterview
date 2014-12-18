@@ -120,12 +120,12 @@ public class SingleLinkedList implements List {
 			for(int j=i;j>0;j--){
 				Object m = this.get(i);
 				Object n = this.get(j);
-				if(m < n){
+				/*if(m < n){
 					Object temp;
 					temp = m;
 					m = n;
 					n = temp;
-				}
+				}*/
 			}
 		}
 	}
