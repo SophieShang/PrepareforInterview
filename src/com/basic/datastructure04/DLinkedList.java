@@ -88,7 +88,7 @@ public class DLinkedList implements List {
 			if(i == index){
 				DLNode prev = temp.getPrev();
 				DLNode next = temp.getNext();
-				/*if(prev != null){//è¯´æ˜Žæœ‰ç›´æŽ¥å‰�åº�ï¼Œä¸�æ˜¯å¤´èŠ‚ç‚¹
+				if(prev != null){//è¯´æ˜Žæœ‰ç›´æŽ¥å‰�åº�ï¼Œä¸�æ˜¯å¤´èŠ‚ç‚¹
 					prev.setNext(next);
 				}
 				if(next != null){
@@ -99,9 +99,8 @@ public class DLinkedList implements List {
 				}
 				if(temp == tailer){
 					tailer = temp.getPrev();
-				}*/
-				
-				if(prev != null || next != null){
+				}
+				/*if(prev != null || next != null){
 					if(temp == tailer){
 						tailer = prev;
 					}else if(temp == header){
@@ -113,7 +112,7 @@ public class DLinkedList implements List {
 					}
 				}else{//ç›¸å½“äºŽå�ªæœ‰ä¸€ä¸ªç»“ç‚¹
 					header = tailer = null;
-				}
+				}*/
 			}
 			index++;
 			temp = temp.getNext();
@@ -193,4 +192,16 @@ public class DLinkedList implements List {
 		dll.print();
 		dll.printReverse();
 	}
+	
+	/*public static void main(String[] args){
+		DLinkedList dll = new DLinkedList();
+		dll.remove(1);
+		dll.print();
+		dll.add(9);
+		dll.add(16);
+		dll.print();
+		dll.remove(1);
+		dll.print();
+	}*/
+	
 }	

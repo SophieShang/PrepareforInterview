@@ -24,7 +24,7 @@ public class SingleLinkedList implements List {
 	}
 
 	@Override
-	public Object get(int i) {//返回链表中第i个node的element值
+	public Object get(int i) {//è¿”å›žé“¾è¡¨ä¸­ç¬¬iä¸ªnodeçš„elementå€¼
 		// TODO Auto-generated method stub
 		Node temp = head;
 		int index = 0;
@@ -41,10 +41,10 @@ public class SingleLinkedList implements List {
 	@Override
 	public void remove(int i) {
 		// TODO Auto-generated method stub
-		if (i == 0) {// 移除链表头
-			if (head == null)// 链表为空的话
-				throw new RuntimeException("List是空的,invalid index");
-			head = head.getNext();// 链表不为空但是移除链表头结点
+		if (i == 0) {// ç§»é™¤é“¾è¡¨å¤´
+			if (head == null)// é“¾è¡¨ä¸ºç©ºçš„è¯�
+				throw new RuntimeException("Listæ˜¯ç©ºçš„,invalid index");
+			head = head.getNext();// é“¾è¡¨ä¸�ä¸ºç©ºä½†æ˜¯ç§»é™¤é“¾è¡¨å¤´ç»“ç‚¹
 			return;
 		}
 		Node temp = head.getNext();
@@ -53,11 +53,12 @@ public class SingleLinkedList implements List {
 		while (temp != null) {
 			if (i == index) {
 				pre.setNext(temp.getNext());
-				if (temp == tail) {// 如果是移除的链表尾结点的话
+				if (temp == tail) {// å¦‚æžœæ˜¯ç§»é™¤çš„é“¾è¡¨å°¾ç»“ç‚¹çš„è¯�
 					pre.setNext(null);
 				}
+				return;
 			}
-			index++; // 向后查找
+			index++; // å�‘å�ŽæŸ¥æ‰¾
 			pre = temp;
 			temp = temp.getNext();
 		}
@@ -65,7 +66,7 @@ public class SingleLinkedList implements List {
 	}
 
 	@Override
-	public int size() {//返回链表中结点个数
+	public int size() {//è¿”å›žé“¾è¡¨ä¸­ç»“ç‚¹ä¸ªæ•°
 		// TODO Auto-generated method stub
 		int index=0;
 		Node temp = head;
@@ -121,7 +122,7 @@ public class SingleLinkedList implements List {
 		return s1.compareTo(s2);
 	}
 	
-	public void Sort(){   //无序链表变为有序的
+	public void Sort(){   //æ— åº�é“¾è¡¨å�˜ä¸ºæœ‰åº�çš„
 		/*for(int i=this.size()-1;i>=0;i--){
 			for(int j=i;j>0;j--){
 				Object m = this.get(i);
@@ -136,13 +137,13 @@ public class SingleLinkedList implements List {
 		}*/
 		
 		{
-			// 插入排序，每次把最小的object插到前面
+			// æ�’å…¥æŽ’åº�ï¼Œæ¯�æ¬¡æŠŠæœ€å°�çš„objectæ�’åˆ°å‰�é�¢
 			Node p,q,r;
 			for(p = head; p!=null;p=p.getNext()){
 				Object min = p.getElem();
 				for(q = p.getNext(); q!=null; q = q.getNext()){
 					Object o = q.getElem();
-					if(compareTo(o, min) < 0){ // o 比当前min还小
+					if(compareTo(o, min) < 0){ // o æ¯”å½“å‰�minè¿˜å°�
 						 p.setElem(o);
 						 q.setElem(min);
 						 min = o;
@@ -202,9 +203,9 @@ public class SingleLinkedList implements List {
 		ls.add("9");
 		ls.print();
 		ls.remove(3);
-		System.out.println("原链表是：");
+		System.out.println("åŽŸé“¾è¡¨æ˜¯ï¼š");
 		ls.print();
-		System.out.println("反转过的链表是：");
+		System.out.println("å��è½¬è¿‡çš„é“¾è¡¨æ˜¯ï¼š");
 		ls.Reverse();
 		ls.print();
 		//ls.Sort();

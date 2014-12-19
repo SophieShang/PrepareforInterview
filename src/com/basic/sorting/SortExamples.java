@@ -104,8 +104,8 @@ public class SortExamples{
 		//se.BubbleSort(in);
 		Integer in1[] = {4,3,58,7,77,32,96};
 		Integer in2[] = {19,78,25,48,2,8,79};
-		se.InsertArray(in);
+		//se.InsertArray(in);
 		se.SelectArray(in1);
-		se.BubbleSort(in2);
+		se.BubbleSort(in);
 	}
 }

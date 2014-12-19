@@ -104,6 +104,7 @@ public class SingleLinkedList implements List {
 	}*/
 	
 	public void Reverse(){
+		tail = head;
 		Node prev = null;
 		Node next = head.getNext();
 		while(next != null){
@@ -115,16 +116,22 @@ public class SingleLinkedList implements List {
 		head.setNext(prev);
 	}
 	
-	public void Sort(){   //无序链表变为有序的
-		for(int i=this.size();i>0;i--){
-			for(int j=i;j>0;j--){
-				Object m = this.get(i);
-				Object n = this.get(j);
-				if(m < n){
-					Object temp;
-					temp = m;
-					m = n;
-					n = temp;
+	static int compare(Object o1, Object o2){
+		String s1 = (String)o1;
+		String s2 = (String) o2;
+		return s1.compareTo(s2);//s1<s2,返回值小于0；s1>s2,返回值大于0
+	}
+	
+	public void InsertSort(){   //无序链表变为有序的,此处用的应该是冒泡排序原因如下
+		Node p, q;
+		for(p=head; p!=null;p=p.getNext()){//每次都是从后半部分无序链表中挑出最小的
+			Object min = p.getElem();
+			for(q=p.getNext();q!=null;q=q.getNext()){
+				Object oq = q.getElem();
+				if(compare(oq,min)<0){
+					p.setElem(oq);
+					q.setElem(min);
+					min = oq;
 				}
 			}
 		}
@@ -152,6 +159,9 @@ public class SingleLinkedList implements List {
 		ls.print();
 		System.out.println("反转过的链表是：");
 		ls.Reverse();
+		ls.print();
+		ls.InsertSort();
+		System.out.println("排序后的链表为：");
 		ls.print();
 	}
 
