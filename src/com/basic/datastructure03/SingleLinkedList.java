@@ -116,6 +116,7 @@ public class SingleLinkedList implements List {
 		head.setNext(prev);
 	}
 	
+
 	static int compare(Object o1, Object o2){
 		String s1 = (String)o1;
 		String s2 = (String) o2;
@@ -133,6 +134,22 @@ public class SingleLinkedList implements List {
 					q.setElem(min);
 					min = oq;
 				}
+			}
+		}
+	}
+
+	public void Sort(){   //无序链表变为有序的
+		for(int i=this.size();i>0;i--){
+			for(int j=i;j>0;j--){
+				Object m = this.get(i);
+				Object n = this.get(j);
+				/*if(m < n){
+					Object temp;
+					temp = m;
+					m = n;
+					n = temp;
+				}*/
+
 			}
 		}
 	}
