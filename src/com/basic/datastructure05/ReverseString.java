@@ -14,6 +14,22 @@ public class ReverseString {
 		}
 	}
 	
+	static void Reverse02(char[] ch){
+		int begin = 0;
+		int end = ch.length-1;
+		while(begin < end){
+			char temp = ch[begin];
+			ch[begin] = ch[end];
+			ch[end] = temp;
+			begin ++;
+			end --;
+		}
+		for(char c:ch){
+			System.out.print(c + " ");
+		}
+		
+	}
+	
 	public static void main(String[] args){
 		String s = "Hello World!";
 		/*char[] ch01 = new char[s.length()];
@@ -28,6 +44,13 @@ public class ReverseString {
 		}*/
 		ReverseString rs = new ReverseString();
 		rs.Reverse(s);
+		System.out.println();
+		char[] ch = {'H','E','L','L','O'};
+		ReverseString rs02 = new ReverseString();
+		rs02.Reverse02(ch);
+	
+		
+		
 		
 	}
 
