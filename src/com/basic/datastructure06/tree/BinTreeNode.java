@@ -1,5 +1,7 @@
 package com.basic.datastructure06.tree;
 
+import com.basic.datastructure03.List;
+
 public class BinTreeNode implements BinTreePosition {
 	protected Object element;
 	protected BinTreePosition parent;
@@ -181,6 +183,30 @@ public class BinTreeNode implements BinTreePosition {
 	public Iterator elementsLevelorder() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	protected static void preorder(List list, BinTreePosition v){
+		if(v == null)
+			return;
+		list.insert(0,v);
+		preorder(list, v.getLChild());
+		preorder(list, v.getRChild());
+	}
+	
+	protected static void inorder(List list, BinTreePosition v){
+		if(v == null)
+			return;
+		inorder(list, v.getLChild());
+		list.insert(0,v);
+		inorder(list, v.getRChild());
+	}
+	
+	protected static void postorder(List list, BinTreePosition v){
+		if( v == null)
+			return;
+		postorder(list, v.getLChild());
+		postorder(list, v.getRChild());
+		list.insert(0, v);
 	}
 
 }
