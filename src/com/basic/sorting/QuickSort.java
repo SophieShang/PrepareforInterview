@@ -10,7 +10,8 @@ public class QuickSort {
 		int high = end;
 		
 		String key = str[begin];
- 		while(low < high){
+		
+ 		while(low < high){//先从后往前找到比key小的字符串，然后再从前往后找到比key大的字符串
 			while(low < high){
 				if(str[high].compareTo(key) < 0){
 					str[low] = str[high];
