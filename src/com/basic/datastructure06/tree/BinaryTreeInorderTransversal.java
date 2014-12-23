@@ -1,11 +1,25 @@
 package com.basic.datastructure06.tree;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 
-public class BinaryTreeInorderTransversal
-  {
+public class BinaryTreeInorderTransversal{
+	
+	class TreeNode{      //set get 方法
+	    protected TreeNode left;
+	    protected TreeNode right;
+	    Integer value;
+		    
+	  public TreeNode(TreeNode l, TreeNode r, Integer value){
+	    left = l;
+	    right = r;
+	    this.value = value;
+	  }
+	}
+	
     public ArrayList<Integer> inOrderTransversal(TreeNode root){
       ArrayList<Integer> inOrder = new ArrayList<Integer> ();
       if(root == null){
@@ -57,24 +71,75 @@ public class BinaryTreeInorderTransversal
     }
     
     public ArrayList<Integer> postOrderTrans(TreeNode root){
-    	return null;
+    	ArrayList<Integer> postOrder = new ArrayList<Integer>();
+    	Stack<TreeNode> s = new Stack<TreeNode>();
+    	s.add(root);
+    	postOrder.add(root.value);
+    	TreeNode p = root.right;
+    	while(!s.isEmpty()){
+    		while(p != null){
+        		postOrder.add(p.value);
+        		s.add(p);
+        		p = p.right;
+        	}
+        	TreeNode n = s.pop();
+        	p = n.left;
+        	if(p != null){
+        		postOrder.add(p.value);
+        		s.add(p);
+        		p = p.right;
+        	}
+    	}
+    	
+    	int i=0, j = postOrder.size()-1;
+    	while(i < j){
+    		Integer temp = postOrder.get(i);
+    		postOrder.set(i, postOrder.get(j));
+    		postOrder.set(j, temp);
+    		i++;
+    		j--;
+    	}
+    	return postOrder;
     }
   
-    class TreeNode{      //set get 方法
-      protected TreeNode left;
-      protected TreeNode right;
-      Integer value;
-    
-    public TreeNode(TreeNode l, TreeNode r, Integer value){
-      left = l;
-      right = r;
-      this.value = value;
+    public ArrayList<ArrayList<Integer>> levelOrderTrans(TreeNode root){
+    	ArrayList<ArrayList<Integer>> levelOrder = new ArrayList<ArrayList<Integer>>();
+    	if(root == null)
+    		return levelOrder;
+    	ArrayList<Integer> levelele = new ArrayList<Integer>();
+    	int currentlevel = 1; //记录当前层的节点个数
+    	int nextlevel = 0;  //记录下一层的节点个数
+    	Queue<TreeNode> queue = new LinkedList<TreeNode>();
+    	queue.add(root);
+    	while(!queue.isEmpty()){
+    		TreeNode node = queue.remove();
+    		levelele.add(node.value);
+    		currentlevel --;
+    		if(node.left != null){
+    			queue.add(node.left);
+    			nextlevel++;
+    		}
+    		if(node.right != null){
+    			queue.add(node.right);
+    			nextlevel++;
+    		}
+    		if(currentlevel == 0){
+    			levelOrder.add(levelele);
+    			levelele = new ArrayList<Integer>();
+    			currentlevel = nextlevel;
+    			nextlevel = 0;
+    		}
+    	}
+    	int i=0, j=levelOrder.size();
+    	while(i < j){
+    		ArrayList<Integer> temp = levelOrder.get(i);
+    		levelOrder.set(i,levelOrder.get(j));
+    		levelOrder.set(j, temp);
+    		i++;
+    		j--;
+    	}
+    	return levelOrder;
     }
-    
-/*    public TreeNode getLeft(TreeNode tn){
-    	
-    }*/
-  }
   
   
   
@@ -86,9 +151,33 @@ public class BinaryTreeInorderTransversal
         return inOrder;
       if(root.left != null)
         inOrder = inOrderTraversalRecur(root.left);
-        inOrder.add(root.value);
+      inOrder.add(root.value);
       if(root.right != null)
         inOrder = inOrderTraversalRecur(root.right);
       return inOrder;
+    }
+    
+    public static ArrayList<Integer> preOrderTraversalRecur(TreeNode root){
+    	ArrayList<Integer> preOrder = new ArrayList<Integer>();
+    	if (root == null)
+            return preOrder;
+    	preOrder.add(root.value);
+    	if(root.left != null)
+            preOrder = preOrderTraversalRecur(root.left);
+          if(root.right != null)
+            preOrder = preOrderTraversalRecur(root.right);
+          return preOrder;
+    }
+    
+    public static ArrayList<Integer> postOrderTraversalRecur(TreeNode root){
+    	ArrayList<Integer> postOrder = new ArrayList<Integer>();
+    	if (root == null)
+            return postOrder;
+    	if(root.left != null)
+            postOrder = postOrderTraversalRecur(root.left);
+          if(root.right != null)
+            postOrder = postOrderTraversalRecur(root.right);
+          postOrder.add(root.value);
+          return postOrder;
     }
   }
