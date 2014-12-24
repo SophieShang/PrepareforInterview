@@ -273,7 +273,7 @@ public class BinaryTreeInorderTransversal{
 		}else{
 			Node slow = begin;  //此处即通过两个指针去获得单链表的中间节点
 			Node fast = begin;  //类似于mid = (begin + end)/2
-			while(fast.next != null && fast.next.next != null){
+			while(fast.next != end && fast.next.next != end){
 				slow = slow.next;
 				fast = fast.next.next;
 			}
@@ -344,6 +344,6 @@ public class BinaryTreeInorderTransversal{
 		//System.out.print(sl.head.getElem());
 		BinaryTreeInorderTransversal bt02 = new BinaryTreeInorderTransversal();
 		System.out.println("链表的前序遍历二分搜索树：");
-		//printList(bt02.preOrderTrans(bt02.sortedLinkedListtoBST(sl.head)));
+		printList(bt02.preOrderTrans(bt02.sortedLinkedListtoBST(sl.head)));
     }
 }
