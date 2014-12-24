@@ -3,7 +3,7 @@ package com.basic.datastructure03;
 import com.basic.datastructure04.DLNode;
 
 public class SingleLinkedList implements List {
-	private Node head;
+	public Node head;
 	private Node tail;
 	
 	public SingleLinkedList(){
@@ -152,6 +152,21 @@ public class SingleLinkedList implements List {
 
 			}
 		}
+	}
+	
+	
+	//检测一个单链表中是否有环
+	
+	public boolean isExistLoop(SingleLinkedList ls){
+		Node slow = ls.head;
+		Node fast = ls.tail;
+		while(fast != null && fast.next != null){
+			slow = slow.next;
+			fast = fast.next.next;
+			if(slow == fast)
+				return true;
+		}
+		return false;
 	}
 	
 	public void print(){

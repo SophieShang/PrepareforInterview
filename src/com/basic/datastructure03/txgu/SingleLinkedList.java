@@ -24,7 +24,7 @@ public class SingleLinkedList implements List {
 	}
 
 	@Override
-	public Object get(int i) {//è¿”å›žé“¾è¡¨ä¸­ç¬¬iä¸ªnodeçš„elementå€¼
+	public Object get(int i) {//返回第i个节点的element值
 		// TODO Auto-generated method stub
 		Node temp = head;
 		int index = 0;

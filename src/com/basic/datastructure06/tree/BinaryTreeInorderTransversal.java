@@ -6,6 +6,8 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
 
+import com.basic.datastructure03.*;
+
 
 public class BinaryTreeInorderTransversal{
 
@@ -226,7 +228,7 @@ public class BinaryTreeInorderTransversal{
         System.out.println();
     }
     
-    //convert a sorted array to binary search tree
+    //convert a sorted array to height balanced binary search tree
     
     public TreeNode sortedArraytoBST(int[] in){ //返回的是二分查找树的根节点
     	return sortedArraytoBST(in, 0, in.length-1);
@@ -235,7 +237,7 @@ public class BinaryTreeInorderTransversal{
     public TreeNode sortedArraytoBST(int[] in, int begin, int end) {
     	while(begin <= end){
     		int mid = (begin+end)/2;
-    		TreeNode left = sortedArraytoBST(in, 0, mid-1);
+    		TreeNode left = sortedArraytoBST(in, begin, mid-1);
     		TreeNode right = sortedArraytoBST(in, mid+1, end);
     		TreeNode n = new TreeNode(null, null,in[mid]);
     		n.left = left;
@@ -243,6 +245,50 @@ public class BinaryTreeInorderTransversal{
     		return n;
     	}
 		return null;
+	}
+    
+    //Given a singly linked list where elements are sorted in ascending order
+    //convert it to a height balanced BST.
+    
+    public TreeNode sortedLinkedListtoBST(Node head){
+    	return sortedLinkedListtoBST(head, null);
+    }
+
+	private TreeNode sortedLinkedListtoBST(Node begin, Node end) {
+		if(begin == end){  //此处意味着这是个空的单链表，直接返回空
+			return null;
+		}else if(begin.next == end){ //即只有一个头节点元素
+			return new TreeNode(null, null, (Integer)begin.getElem());
+		}else{
+			Node slow = begin;  //此处即通过两个指针去获得单链表的中间节点
+			Node fast = begin;  //类似于mid = (begin + end)/2
+			while(fast.next != null && fast.next.next != null){
+				slow = slow.next;
+				fast = fast.next.next;
+			}
+			TreeNode left = sortedLinkedListtoBST(begin,slow);
+			TreeNode right = sortedLinkedListtoBST(slow.next,end);
+			TreeNode root = new TreeNode(null, null, (Integer)slow.getElem());
+			root.left = left;
+			root.right = right;
+			return root;
+		}
+	}
+	
+	//Given a binary tree, find the lowest common ancestor of two given nodes in the tree
+	public TreeNode LCA(TreeNode root, TreeNode p, TreeNode q){
+		//已知二叉树的根节点，寻找节点p和q的最小公共父节点
+		
+		if(root == null)
+			return null;
+		if(root == p || root == q)
+			return root;
+		TreeNode left = LCA(root.left, p, q);
+		TreeNode right = LCA(root.right, p, q);
+		if(left!=null && right!=null)
+			return root;
+		return left!=null? left:right;
+		
 	}
 
 	public static void main(String[] args){
@@ -273,5 +319,21 @@ public class BinaryTreeInorderTransversal{
         System.out.println();
         ArrayList<ArrayList<Integer>> al = bt.levelOrderTrans(rt);
         printList02(al);
+        //printList(bt.postOrderTrans(rt));
+        
+        SingleLinkedList sl = new SingleLinkedList();
+        sl.add(1);
+        sl.add(2);
+        sl.add(3);
+        sl.add(4);
+        sl.add(5);
+        sl.add(6);
+        sl.add(7);
+        System.out.println("原链表是：");
+		sl.print();
+		//System.out.print(sl.head.getElem());
+		BinaryTreeInorderTransversal bt02 = new BinaryTreeInorderTransversal();
+		System.out.println("链表的前序遍历二分搜索树：");
+		//printList(bt02.preOrderTrans(bt02.sortedLinkedListtoBST(sl.head)));
     }
 }

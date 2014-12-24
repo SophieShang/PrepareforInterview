@@ -1,8 +1,8 @@
 package com.basic.datastructure03;
 
 public class Node implements Position{
-	private Object element;
-	private Node next;
+	public Object element;
+	public Node next;
 	public Node(){
 		this(null,null);
 	}
