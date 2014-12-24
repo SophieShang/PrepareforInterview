@@ -352,6 +352,11 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> {
             String key = keys[i];
             st.put(key, i);
         }
+        
+        for(String str:keys){
+        	System.out.print(str);
+        }
+        
 
         
 

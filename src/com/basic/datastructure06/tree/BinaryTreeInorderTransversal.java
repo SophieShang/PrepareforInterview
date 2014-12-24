@@ -131,7 +131,7 @@ public class BinaryTreeInorderTransversal{
                 nextlevel = 0;
             }
         }
-        int i=0, j=levelOrder.size();
+        int i=0, j=levelOrder.size()-1;
         while(i < j){
             ArrayList<Integer> temp = levelOrder.get(i);
             levelOrder.set(i,levelOrder.get(j));
@@ -145,8 +145,9 @@ public class BinaryTreeInorderTransversal{
 
 
     //递归方法实现
-
-    public static ArrayList<Integer> inOrderTraversalRecur(TreeNode root){
+    
+    //错误事例
+    /*public static ArrayList<Integer> inOrderTraversalRecur(TreeNode root){
         ArrayList<Integer> inOrder = new ArrayList<Integer>();
         if (root == null)
             return inOrder;
@@ -156,7 +157,7 @@ public class BinaryTreeInorderTransversal{
         if(root.right != null)
             inOrder = inOrderTraversalRecur(root.right);
         return inOrder;
-    }
+    }*/
 
     public static ArrayList<Integer> preOrderTraversalRecur(TreeNode root){
         ArrayList<Integer> preOrder = new ArrayList<Integer>();
@@ -164,9 +165,9 @@ public class BinaryTreeInorderTransversal{
             return preOrder;
         preOrder.add(root.value);
         if(root.left != null)
-            preOrder = preOrderTraversalRecur(root.left);
+            preOrder.addAll(preOrderTraversalRecur(root.left));
         if(root.right != null)
-            preOrder = preOrderTraversalRecur(root.right);
+            preOrder.addAll(preOrderTraversalRecur(root.right));
         return preOrder;
     }
 
@@ -175,9 +176,9 @@ public class BinaryTreeInorderTransversal{
         if (root == null)
             return postOrder;
         if(root.left != null)
-            postOrder = postOrderTraversalRecur(root.left);
+            postOrder.addAll(postOrderTraversalRecur(root.left));
         if(root.right != null)
-            postOrder = postOrderTraversalRecur(root.right);
+            postOrder.addAll(postOrderTraversalRecur(root.right));
         postOrder.add(root.value);
         return postOrder;
     }
@@ -217,14 +218,60 @@ public class BinaryTreeInorderTransversal{
         }
         System.out.println();
     }
+    
+    static void printList02(ArrayList<ArrayList<Integer>> order){
+        for(List<Integer> ll : order){
+            System.out.print(ll);
+        }
+        System.out.println();
+    }
+    
+    //convert a sorted array to binary search tree
+    
+    public TreeNode sortedArraytoBST(int[] in){ //返回的是二分查找树的根节点
+    	return sortedArraytoBST(in, 0, in.length-1);
+    }
 
-    public static void main(String[] args){
+    public TreeNode sortedArraytoBST(int[] in, int begin, int end) {
+    	while(begin <= end){
+    		int mid = (begin+end)/2;
+    		TreeNode left = sortedArraytoBST(in, 0, mid-1);
+    		TreeNode right = sortedArraytoBST(in, mid+1, end);
+    		TreeNode n = new TreeNode(null, null,in[mid]);
+    		n.left = left;
+    		n.right = right;
+    		return n;
+    	}
+		return null;
+	}
+
+	public static void main(String[] args){
         TreeNode root = new TreeNode(null, null, 1);
         root.left = new TreeNode(null, null, 2);
         root.left.left = new TreeNode(null, null, 3);
+        root.left.right = new TreeNode(null, null,5);
         root.right = new TreeNode(null, null, 4);
+        root.right.left = new TreeNode(null, null, 6);
+        root.right.right = new TreeNode(null, null, 7);
 
-        printList(inOrderTraversalRecurSlow(root));
+      /*  printList(inOrderTraversalRecurSlow(root));
         printList(inOrderTraversalRecurFast(root));
+        printList(postOrderTraversalRecur(root));
+        printList(preOrderTraversalRecur(root));*/
+        
+        BinaryTreeInorderTransversal bt = new BinaryTreeInorderTransversal();
+        
+        int[] in = {1,2,3,4,5,6,7};
+        for(int i:in){
+        	System.out.print(i+", ");
+        }
+        System.out.println();
+        printList02(bt.levelOrderTrans(root));
+        
+        TreeNode rt = bt.sortedArraytoBST(in);
+        System.out.print("二分搜索树根节点是："+rt.value);
+        System.out.println();
+        ArrayList<ArrayList<Integer>> al = bt.levelOrderTrans(rt);
+        printList02(al);
     }
 }
