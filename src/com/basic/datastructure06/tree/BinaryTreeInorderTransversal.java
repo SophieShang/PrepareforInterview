@@ -223,7 +223,7 @@ public class BinaryTreeInorderTransversal{
     
     static void printList02(ArrayList<ArrayList<Integer>> order){
         for(List<Integer> ll : order){
-            System.out.print(ll);
+            System.out.println(ll);
         }
         System.out.println();
     }
@@ -235,7 +235,7 @@ public class BinaryTreeInorderTransversal{
     }
 
     public TreeNode sortedArraytoBST(int[] in, int begin, int end) {
-    	while(begin <= end){
+    	/*while(begin <= end){
     		int mid = (begin+end)/2;
     		TreeNode left = sortedArraytoBST(in, begin, mid-1);
     		TreeNode right = sortedArraytoBST(in, mid+1, end);
@@ -244,7 +244,18 @@ public class BinaryTreeInorderTransversal{
     		n.right = right;
     		return n;
     	}
-		return null;
+		return null;*/
+
+
+        if(begin <= end){
+            int mid = (begin+end)/2;
+            TreeNode left = sortedArraytoBST(in, begin, mid-1);
+            TreeNode right = sortedArraytoBST(in, mid+1, end);
+            TreeNode n = new TreeNode(left, right,in[mid]);
+            return n;
+        }
+
+        return null;
 	}
     
     //Given a singly linked list where elements are sorted in ascending order
@@ -315,8 +326,7 @@ public class BinaryTreeInorderTransversal{
         printList02(bt.levelOrderTrans(root));
         
         TreeNode rt = bt.sortedArraytoBST(in);
-        System.out.print("二分搜索树根节点是："+rt.value);
-        System.out.println();
+        System.out.println("二分搜索树根节点是："+rt.value);
         ArrayList<ArrayList<Integer>> al = bt.levelOrderTrans(rt);
         printList02(al);
         //printList(bt.postOrderTrans(rt));
