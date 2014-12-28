@@ -1,4 +1,4 @@
-package com.basic.datastructure03.txgu;
+package com.basic.datastructure03.list;
 import com.basic.datastructure02.stack_queue.*;
 import com.basic.datastructure02.stack_queue.StackUseArray.ExceptionStackEmpty;
 import com.basic.datastructure02.stack_queue.StackUseArray.Stack;

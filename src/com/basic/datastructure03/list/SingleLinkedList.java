@@ -1,9 +1,9 @@
-package com.basic.datastructure03.txgu;
+package com.basic.datastructure03.list;
 
 import com.basic.datastructure04.dlink.DLNode;
 
 public class SingleLinkedList implements List {
-	private Node head;
+	public Node head;
 	private Node tail;
 	
 	public SingleLinkedList(){
@@ -24,7 +24,7 @@ public class SingleLinkedList implements List {
 	}
 
 	@Override
-	public Object get(int i) {//返回第i个节点的element值
+	public Object get(int i) {//返回链表中第i个node的element值
 		// TODO Auto-generated method stub
 		Node temp = head;
 		int index = 0;
@@ -41,32 +41,32 @@ public class SingleLinkedList implements List {
 	@Override
 	public void remove(int i) {
 		// TODO Auto-generated method stub
-		if (i == 0) {// ç§»é™¤é“¾è¡¨å¤´
-			if (head == null)// é“¾è¡¨ä¸ºç©ºçš„è¯�
-				throw new RuntimeException("Listæ˜¯ç©ºçš„,invalid index");
-			head = head.getNext();// é“¾è¡¨ä¸�ä¸ºç©ºä½†æ˜¯ç§»é™¤é“¾è¡¨å¤´ç»“ç‚¹
+		if(i == 0){//移除链表头
+			if(head == null)//链表为空的话
+				throw new RuntimeException("List是空的,invalid index");
+			head = head.getNext();//链表不为空但是移除链表头结点
 			return;
 		}
 		Node temp = head.getNext();
 		int index = 1;
 		Node pre = head;
-		while (temp != null) {
-			if (i == index) {
+		while(temp!=null){
+			if(i==index){
 				pre.setNext(temp.getNext());
-				if (temp == tail) {// å¦‚æžœæ˜¯ç§»é™¤çš„é“¾è¡¨å°¾ç»“ç‚¹çš„è¯�
-					pre.setNext(null);
-				}
-				return;
+			if(temp == tail){//如果是移除的链表尾结点的话
+				pre.setNext(null);
 			}
-			index++; // å�‘å�ŽæŸ¥æ‰¾
+		  }
+			index++;  //向后查找
 			pre = temp;
 			temp = temp.getNext();
 		}
+		
 
 	}
 
 	@Override
-	public int size() {//è¿”å›žé“¾è¡¨ä¸­ç»“ç‚¹ä¸ªæ•°
+	public int size() {//返回链表中结点个数
 		// TODO Auto-generated method stub
 		int index=0;
 		Node temp = head;
@@ -104,8 +104,8 @@ public class SingleLinkedList implements List {
 	}*/
 	
 	public void Reverse(){
-		Node prev = null;
 		tail = head;
+		Node prev = null;
 		Node next = head.getNext();
 		while(next != null){
 			head.setNext(prev);
@@ -116,73 +116,57 @@ public class SingleLinkedList implements List {
 		head.setNext(prev);
 	}
 	
-	static int compareTo(Object o1, Object o2){
-		String s1 = (String) o1;
+
+	static int compare(Object o1, Object o2){
+		String s1 = (String)o1;
 		String s2 = (String) o2;
-		return s1.compareTo(s2);
+		return s1.compareTo(s2);//s1<s2,返回值小于0；s1>s2,返回值大于0
 	}
 	
-	public void Sort(){   //æ— åº�é“¾è¡¨å�˜ä¸ºæœ‰åº�çš„
-		/*for(int i=this.size()-1;i>=0;i--){
+	public void InsertSort(){   //无序链表变为有序的,此处用的应该是冒泡排序原因如下
+		Node p, q;
+		for(p=head; p!=null;p=p.getNext()){//每次都是从后半部分无序链表中挑出最小的
+			Object min = p.getElem();
+			for(q=p.getNext();q!=null;q=q.getNext()){
+				Object oq = q.getElem();
+				if(compare(oq,min)<0){
+					p.setElem(oq);
+					q.setElem(min);
+					min = oq;
+				}
+			}
+		}
+	}
+
+	public void Sort(){   //无序链表变为有序的
+		for(int i=this.size();i>0;i--){
 			for(int j=i;j>0;j--){
 				Object m = this.get(i);
 				Object n = this.get(j);
-				if(compareTo(m, n) < 0){
+				/*if(m < n){
 					Object temp;
 					temp = m;
 					m = n;
 					n = temp;
-				}
-			}
-		}*/
-		
-		{
-			// æ�’å…¥æŽ’åº�ï¼Œæ¯�æ¬¡æŠŠæœ€å°�çš„objectæ�’åˆ°å‰�é�¢
-			Node p,q,r;
-			for(p = head; p!=null;p=p.getNext()){
-				Object min = p.getElem();
-				for(q = p.getNext(); q!=null; q = q.getNext()){
-					Object o = q.getElem();
-					if(compareTo(o, min) < 0){ // o æ¯”å½“å‰�minè¿˜å°�
-						 p.setElem(o);
-						 q.setElem(min);
-						 min = o;
-					}
-				}
+				}*/
+
 			}
 		}
-		
-		
 	}
 	
-	public void quickSort(){
-		quickSort(head, tail);
-	}
 	
-	public void quickSort(Node begin, Node end){
-		if(begin == null || end == null){
-			return;
+	//检测一个单链表中是否有环
+	
+	public boolean isExistLoop(SingleLinkedList ls){
+		Node slow = ls.head;
+		Node fast = ls.tail;
+		while(fast != null && fast.next != null){
+			slow = slow.next;
+			fast = fast.next.next;
+			if(slow == fast)
+				return true;
 		}
-		
-		if(begin == end){
-			return;
-		}
-		
-		Node p = begin;
-		Node q = begin.getNext();
-		Object key = begin.getElem();
-		while(q != null){
-			Object o = q.getElem();
-			if(compareTo(o, key) < 0){
-				p.setElem(o);
-				p = q;
-			}
-			q = q.getNext();
-		}
-		p.setElem(key);
-		
-		quickSort(begin, p);
-		quickSort(p.getNext(), end);
+		return false;
 	}
 	
 	public void print(){
@@ -203,13 +187,13 @@ public class SingleLinkedList implements List {
 		ls.add("9");
 		ls.print();
 		ls.remove(3);
-		System.out.println("åŽŸé“¾è¡¨æ˜¯ï¼š");
+		System.out.println("原链表是：");
 		ls.print();
-		System.out.println("å��è½¬è¿‡çš„é“¾è¡¨æ˜¯ï¼š");
+		System.out.println("反转过的链表是：");
 		ls.Reverse();
 		ls.print();
-		//ls.Sort();
-		ls.quickSort();
+		ls.InsertSort();
+		System.out.println("排序后的链表为：");
 		ls.print();
 	}
 

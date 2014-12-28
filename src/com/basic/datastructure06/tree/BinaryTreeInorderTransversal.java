@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
 
-import com.basic.datastructure03.*;
+import com.basic.datastructure03.list.*;
 
 
 public class BinaryTreeInorderTransversal{

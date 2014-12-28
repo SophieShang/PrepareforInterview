@@ -1,6 +1,6 @@
 package com.basic.datastructure06.tree;
 
-import com.basic.datastructure03.Position;
+import com.basic.datastructure03.list.Position;
 
 public interface BinTreePosition extends Position {
 	//判断是否有父亲（为使代码描述简洁）

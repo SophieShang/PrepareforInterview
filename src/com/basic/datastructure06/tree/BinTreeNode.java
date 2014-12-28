@@ -1,6 +1,6 @@
 package com.basic.datastructure06.tree;
 
-import com.basic.datastructure03.List;
+import com.basic.datastructure03.list.List;
 
 public class BinTreeNode implements BinTreePosition {
 	protected Object element;
